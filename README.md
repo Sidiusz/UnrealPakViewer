@@ -1,175 +1,175 @@
 # UnrealPakViewer ##
 
-可视化查看 Pak 文件内容，支持以下特性
+Visualize the contents of Pak files, supporting the following features
 
-* 支持树形视图和列表视图查看 pak/ucas 中的文件
-* 支持同时打开多个 pak/ucas 文件
-* 列表视图中支持搜索，过滤，排序
-* 支持查看 UAsset 文件的具体内容组成信息
-* 以百分比显示各个文件夹，文件，文件类型的大小占比
-* 支持多线程解压 Pak 文件
-* 支持加载 AssetRegistry.bin 资源注册表
+* Tree view and list view support for viewing files in pak/ucas
+* Support for opening multiple pak/ucas files at the same time
+* Support for searching, filtering and sorting in the list view
+* Support for viewing specific content composition information of UAsset files
+* Percentage display of the size of each folder, file and file type
+* Support multi-threaded decompression of Pak files
+* Support for loading AssetRegistry.bin resource registry
 
-## 功能 ##
+## Function ##
 
-### 打开 Pak 文件 ###
+### Open Pak file ###
 
 ![OpenPak.png](Resources/Images/OpenPak.png)
 
-或者直接拖动 Pak 文件到 UnrealPakViewer 窗口中即可打开，如果 Pak 文件是加密的的，则会弹出密码输入框
+Or drag the Pak file directly into the UnrealPakViewer window to open it, and if the Pak file is encrypted, a password entry box will pop up
 
 ![AESKey.png](Resources/Images/AESKey.png)
 
-输入对应的 AES 密钥的 Base64 格式后即可打开 Pak 文件
+Enter the corresponding AES key in Base64 format to open the Pak file
 
-### 查看 Pak 文件摘要信息 ###
+### View Pak file summary information ###
 
 ![PakSummary.png](Resources/Images/PakSummary.png)
 
-* Mount Point: 默认挂载点
-* Pak Version: Pak 文件版本号
-* Pak File Size: Pak 文件大小
-* Pak File Count: Pak 内打包的文件数量
-* Pak Header Size: Pak 文件头大小
-* Pak Index Size: Pak 索引区大小
-* Pak Index Hash: Pak 索引区哈希值
-* Pak Index Is Encrypted: Pak 索引区是否加密
-* Pak File Content Size: Pak 文件内容区大小
-* Pak Compression Methods: Pak 中文件所使用的压缩算法
+* Mount Point: Default mount point
+* Pak Version: Pak file version number
+* Pak File Size: Pak file size
+* Pak File Count: the number of files packed in the Pak
+* Pak Header Size: Pak file header size
+* Pak Index Size: Pak index area size
+* Pak Index Hash: Pak index area hash
+* Pak Index Is Encrypted: Whether the Pak index area is encrypted or not
+* Pak File Content Size: Pak file content area size
+* Pak Compression Methods: The compression algorithm used for the files in Pak
 
-### 加载资源注册表 ###
+### Load the resource registry ###
 
 ![LoadAssetRegistry.png](Resources/Images/LoadAssetRegistry.png)
 
-Cook 完成后都会在 *Saved/Cooked/[Platform]/[Project]/Metadata/DevelopmentAssetRegistry.bin* 路径生成一份资源注册表信息，里面包含资源类型，引用关系等信息，可以通过 Load Asset Registry 加载进来分析各个资源类型的大小占比信息
+Cook will generate a resource registry in the *Saved/Cooked/[Platform]/[Project]/Metadata/DevelopmentAssetRegistry.bin* path after completion, which contains information on resource types, reference relationships, etc., and can be loaded through the Load Asset Registry to analyze the size share information of each resource type
 
-### 文件树视图 ###
+### File tree view ###
 
 ![TreeView.png](Resources/Images/TreeView.png)
 
-以树形结构列出 Pak 内包含的目录和文件，以及目录大小占总大小的比例信息
+A tree structure listing the directories and files contained in the Pak, and information about the size of the directories as a percentage of the total size
 
-#### 选中某个目录后可以在右边查看该目录详情 ####
+#### Select a directory to view the details of that directory on the right ####
 
 ![FolderDetail.png](Resources/Images/FolderDetail.png)
 
-* Name: 目录名称
-* Path: 目录路径
-* Size: 目录解压后大小
-* Compressed Size: 目录压缩后大小
-* Compressed Size Of Total: 目录压缩大小占总 Pak 大小的比例
-* Compressed Size Of Parent: 目录压缩大小占上级目录的比例
-* File Count: 目录中文件数量
+* Name: Directory name
+* Path: Path of the directory
+* Size: Directory size after decompression
+* Compressed Size: The size of the directory after it is compressed
+* Compressed Size Of Total: The ratio of compressed size of the directory to the total Pak size
+* Compressed Size Of Parent: The ratio of compressed size of the directory to the parent directory
+* File Count: Number of files in the directory
 
-以及该目录中各个文件类型的占比信息(需要加载 AssetRegistry.bin 注册表)
+and information on the percentage of each file type in that directory (requires loading the AssetRegistry.bin registry)
 
 ![FolderDetailClass.png](Resources/Images/FolderDetailClass.png)
 
-#### 选中文件后可以在右边查看该文件详情 ####
+#### After selecting a file you can view the details of that file on the right ####
 
 ![FileDetail.png](Resources/Images/FileDetail.png)
 
-相比目录，额外多一些信息
+Some additional information compared to the directory
 
-* Class: 文件类型
-* Offset: 文件在 Pak 中序列化的起始位置
-* Compression Block Count: 压缩分块数量
-* Compression Block Size: 压缩分块大小
-* Compression Method: 文件压缩算法
-* SHA1: 文件哈希值
-* IsEncrypted: 文件是否加密
+* Class: the type of the file
+* Offset: the starting position of the file serialized in Pak
+* Compression Block Count: number of compression blocks
+* Compression Block Size: Compression block size
+* Compression Method: file compression algorithm
+* SHA1: File hash value
+* IsEncrypted: whether the file is encrypted or not
 
-如果选中的是 .uasset 或者 .umap 文件，还能查看该文件内部的序列化信息
+If a .uasset or .umap file is selected, you can also view the serialization information inside that file
 
 ![AssetSummary.png](Resources/Images/AssetSummary.png)
 
-* Guid: 该资源的 Guid
-* bUnversioned: 序列化时是否带引擎版本信息
-* FileVersionUE4: 文件格式版本号
-* FileVersionLicenseeUE4: 文件格式版本号(授权)
-* TotalHeaderSize: uasset 的文件头大小
-* PackageFlags: uasset 包标志
-* ImportObjects: 导入表信息(引用的外部对象信息)
-  ![ImportObjects.png](Resources/Images/ImportObjects.png)
-  * Index: 对象在导入表中的索引
-  * ObjectName: 对象名称
-  * ClassName: 对象类型
-  * ClassPackage: 对象类型所在的包
-  * FullPath: 对象完整路径
-* ExportObjects: 导出表信息(该资源内部有哪些对象)，导出表的序列化大小即是对应的 .uexp 文件大小，可点击 SerialSize 和 SerialOffset 列进行排序
-  ![ExportObjects.png](Resources/Images/ExportObjects.png)
-  * Index: 对象在导出表中的索引
-  * ObjectName: 对象名称
-  * ClassName: 对象类型
-  * SerialSize: 对象的序列化大小
-  * SerialOffset: 对象的序列化偏移
-  * FullPath: 对象在包内的完整路径
-  * bIsAsset:
-  * bNotForClient: 非客户端资源
-  * bNotForServer: 非服务器资源
-  * TemplateObject: 该对象的模板对象
-  * Super: 父类对象
-  * Dependencies: 该对象引用的具体对象信息，冒号前为引用类型，后为引用的具体对象路径
-    ![ObjectDependencies.png](Resources/Images/ObjectDependencies.png)
-    * Serialization Before Serialization: 序列化前要完成序列化的对象
-    * Create Before Serialization: 序列化前要完成创建的对象
-    * Serialization Before Create: 创建前要完成序列化的对象
-    * Create Before Create: 创建前要完成创建的对象
-* Dependency packages: 该资源依赖的资源
+* Guid: The Guid of the resource
+* bUnversioned: whether the serialization is done with the engine version information
+* FileVersionUE4: File format version number
+* FileVersionLicenseeUE4: File format version number (license)
+* TotalHeaderSize: uasset's file header size
+* PackageFlags: uasset package flags
+* ImportObjects: import table information (referenced external object information)
+![ImportObjects.png](Resources/Images/ImportObjects.png)
+* Index: The index of the object in the imported table
+* ObjectName: The name of the object
+* ClassName: the type of the object
+* ClassPackage: The package where the object type is located
+* FullPath: The full path to the object
+* ExportObjects: information about the export table (which objects are inside the resource), the serialized size of the export table is the corresponding .uexp file size, you can click SerialSize and SerialOffset columns to sort
+![ExportObjects.png](Resources/Images/ExportObjects.png)
+Index: Index of the object in the exported table
+* ObjectName: The name of the object
+* ClassName: the type of the object
+* SerialSize: the serialized size of the object
+* SerialOffset: Serialization offset of the object
+* FullPath: The full path of the object within the package
+* bIsAsset:
+* bNotForClient: non-client resource
+* bNotForServer: non-server resource
+* TemplateObject: The object's template object
+* Super: The parent object
+* Dependencies: the specific object information referenced by the object, before the colon for the reference type, followed by the path to the specific object referenced
+ ![ObjectDependencies.png](Resources/Images/ObjectDependencies.png)
+* Serialization Before Serialization: Serialized objects to be serialized before serialization
+* Create Before Serialization: Objects to be created before serialization
+* Serialization Before Create: Objects to be serialized before creation
+* Create Before Create: Objects to be created before creation
+* Dependency packages: Resources that this resource depends on
   ![DependencyPackages.png](Resources/Images/DependencyPackages.png)
-* Dependent packages: 依赖该资源的资源，这个是在当前 Pak 内搜索，如果分包了则结果可能会缺失
+* Dependent packages: resources that depend on this resource, this is searched within the current Pak, if the package is subcontracted the results may be missing
   ![DependentPackages.png](Resources/Images/DependentPackages.png)
-* Names: 该资源相关联的所有 FName 信息
+* Names: All FName information associated with this resource
   ![Names.png](Resources/Images/Names.png)
 
-#### 右键菜单 ####
+#### right-click menu ####
 
 ![TreeViewContext.png](Resources/Images/TreeViewContext.png)
 
-右键目录或者文件，会弹出右键菜单，功能如下
+Right-clicking on a directory or file will bring up a right-click menu with the following functions
 
-* Extract: 解压选中的目录或者文件
-* Export To Json: 将选中的目录或文件信息导出到 Json 文件
-* Export To Json: 将选中的目录或文件信息导出到 Csv 文件
-* Show In File View: 如果选中的是文件，则跳转到该文件在文件列表中的对应位置
+* Extract: Decompress the selected directory or file.
+* Export To Json: Export the selected directory or file information to a Json file.
+* Export To Json: Export the selected directory or file information to a Csv file.
+* Show In File View: If a file is selected, jump to the corresponding position of the file in the file list
 
-### 文件列表视图 ###
+### File list view ###
 
 ![ListView.png](Resources/Images/ListView.png)
 
-文件列表视图以表格形式显示 Pak 中的文件信息，支持点击列标题进行排序
+The file list view displays information about files in Pak in a table format, with support for sorting by clicking on column headings
 
-#### 类型过滤 ####
+#### Type filter ####
 
 ![ClassFilter.png](Resources/Images/ClassFilter.png)
 
-按类型过滤列表中的文件
+Filter the files in the list by type
 
-#### 文件名过滤 ####
+#### Filename filter ####
 
 ![NameFilter.png](Resources/Images/NameFilter.png)
 
-按文件名过滤列表中的文件
+Filter the files in the list by file name
 
-#### 右键菜单 ####
+#### right-click menu ####
 
 ![ListViewContext.png](Resources/Images/ListViewContext.png)
 
-选中文件后右键弹出右键菜单，功能如下
+Right-click on the selected file to bring up the context menu with the following functions
 
-* Extract: 解压选中文件
-* Export To Json: 将选中的文件信息导出到 Json 文件
-* Export To Json: 将选中的文件信息导出到 Csv 文件
-* Show In Tree View: 如果选中单文件，则跳转到树形视图中
-* Copy Columns: 复制对应的列信息到剪贴板中
-* View Column: 隐藏/显示列
-* Show All Columns: 显示所有列
+* Extract: Decompress the selected file.
+* Export To Json: Export the information of the selected file to a Json file.
+* Export To Json: Export the information of the selected file to a Csv file.
+* Show In Tree View: If a single file is selected, it will jump to the tree view
+* Copy Columns: Copies the corresponding column information to the clipboard
+* View Column: Hide/Show Columns
+* Show All Columns: Displays all columns
 
-## 编译 ##
+## Compile ##
 
-将代码克隆到 *Engine\Source\Programs* 目录下，重新生成解决方案编译即可
+Clone the code to the *Engine\Source\Programs* directory and regenerate the solution to compile it
 
-* 已编译通过的引擎版本
+* Compiled version of the engine
   * 4.24
   * 4.25
   * 4.26
