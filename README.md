@@ -1,3 +1,7 @@
+# You can download the files from the original repository ##
+
+https://github.com/Sidiusz/UnrealPakViewer/releases/tag/v1.3
+
 # UnrealPakViewer ##
 
 Graphical tool for viewing UE4 Pak files, supports UE4 pak/ucas files
