@@ -1,6 +1,6 @@
 # You can download the files from the original repository ##
 
-https://github.com/Sidiusz/UnrealPakViewer/releases/tag/v1.3
+https://github.com/jashking/UnrealPakViewer/releases
 
 # UnrealPakViewer ##
 
