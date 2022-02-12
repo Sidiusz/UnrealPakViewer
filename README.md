@@ -1,6 +1,6 @@
 # UnrealPakViewer ##
 
-Visualize the contents of Pak files, supporting the following features
+Graphical tool for viewing UE4 Pak files, supports UE4 pak/ucas files
 
 * Tree view and list view support for viewing files in pak/ucas
 * Support for opening multiple pak/ucas files at the same time
